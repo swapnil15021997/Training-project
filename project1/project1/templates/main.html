@@ -1,0 +1,44 @@
+{% extends 'index.html' %}
+
+    
+
+{% block content %}
+
+<table id="table">
+    <th>Registraion Number</th>
+    <th>Date of Registraion</th>
+    <th>Surname</th>
+    <th>Fathers Name</th>
+    <th>Name</th>
+    <th>Aadhar Number</th>
+    <th>Mothers Name</th>
+    <th>Gender</th>
+    <th>Place</th>
+    <th>City</th>
+    <th>Distance</th>
+    <th>State</th>
+    <th>Physical State</th>
+    <th>School Name</th>
+    {% for stu in data %}
+
+    <tr>
+        <td>{{stu.reg_no}}</td>
+        <td>{{stu.date}}</td>
+        <td>{{stu.surname}}</td>
+        <td>{{stu.fname}}</td>
+        <td>{{stu.name}}</td>
+        <td>{{stu.adhar_no}}</td>
+        <td>{{stu.mname}}</td>
+        <td>{{stu.gender}}</td>
+        <td>{{stu.place}}</td>
+        <td>{{stu.city}}</td>
+        <td>{{stu.dist}}</td>
+        <td>{{stu.state}}</td>
+
+        <td>{{stu.physical}}</td>
+        <td>{{stu.schoolname}}</td>
+    </tr>
+
+    {% endfor %}
+ </table>
+ {% endblock %}

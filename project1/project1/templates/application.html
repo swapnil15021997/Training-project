@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My form</title>
+    <link rel="stylesheet" href="{% static 'css/style1.css' %}">
+</head>
+<body>
+    <div id ="container">
+        <div class="form">
+
+       
+        <form action=""  method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <h2>LOREM IPSUM DOLOR</h2>
+        <label for="reg">Reg. No</label> <input type="number" name="regno" id="regno">
+        <input type="file" name="image" id="img">
+        <br/>        <br/>
+        
+        <label for="date">Date of Issue: </label>
+        <input type="date" name="date" id="date" value = {{ApplicationForm.date|date:'y-m-d'}}> -->
+        
+        
+
+    </div>
+   
+    <div id="adform">
+    <h2 class="heading">  Admission Form</h2>
+    <label for="surname">Surname:</label>
+        <input type="text" name="surname" id="surname" placeholder="Enter Your Surname">
+        <br/>        <br/>
+        <label for="name">Name:</label>
+        <input type="text" name="name" id="name" placeholder="Enter Your Name">
+
+        <br/>        <br/>
+        <label for="name">Father's Name:</label>
+        <input type="text" name="fname" id="fname" placeholder="Enter Your First Name">
+
+        <br/>        <br/>
+        <label for="name">Mother's Name:</label>
+        <input type="text" name="mname" id="mname" placeholder="Enter Your Mother's Name">
+
+        <br/>        <br/>
+        <label for="Aadhar Number">Aadhar Number :</label>
+        <input type="number" name="adno" id="adno">
+        <br/>        <br/>
+        <label for="Date of birth">Date of Birth :</label>
+        <input type="date" name="dob" id="dob">
+        <span>Format (DD/MM/YYYY) eg. 07/12/2000</span>
+        <br/>        <br/>
+        <label for="Gender">Gender :</label>
+        
+        <input type="radio" name="gender" id="male" value="male">
+        <label for="Gender">Male</label>
+        
+        <input type="radio" name="gender" id="female" value="female">
+        <label for="Gender">Female</label>
+
+        <br/>        <br/>
+        <label for="place">Place of Birth: </label>
+        <input type="text" name="place" id="place" placeholder="Enter Your Place of Birth">
+
+        <br/>        <br/>
+        <label for="City">City: </label>
+        <input type="text" name="city" id="city" placeholder="Enter Your City">
+        <label for="City">Distance: </label>
+        <input type="number" name="dist" id="dist">
+
+        <br/>        <br/>
+        <label for="state"> State: </label>
+        <select name="State" id="statenames">
+            <option value="Maharashtra">Maharashtra</option>
+            <option value="Gujrat">Gujrat</option>
+            <option value="Rajasthan">Rajasthan</option>
+            <option value="West Bangal">West Bangal</option>
+        </select>
+
+        <label for="state"> Physical Problems (if any): </label>
+        
+        <select name="physical problems" id="physicalproblems">
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+        </select>
+        <br/>        <br/>
+        <label for="Name of School"> Name of School: </label>
+        <input type="text" name="schoolname " id="schoolname">
+    </div>
+</div>  
+    <div class = "undertaking">
+        <h3 class="heading">Undertaking</h3>
+        <i>Lorem ipsum dolor sit amet:</i>
+        
+            <ol type="A">
+                <p> <li>
+                    Constectetur adipiscing elit. Morbi rhoncus, lorem iterdum parta consequant, est manga luctus diam , quis semper justo mauris at metus.
+                </li></p>
+                <li>
+                    <p>Donec convallis accumsan mattis. Prasent tempus ante egeg diam laculis, id posuere enim tempus.</p>
+                </li>
+
+                <li>
+                    <p>Cras vel lorem lancia, dapibus lorem sediscelerisque ac.</p>
+                </li>
+            </ol>
+        
+            <h4 id="sig">Signature: </h4>
+            <label for="sig" id="lab"></label>
+
+            <input type="Submit" value="submit">
+            
+    </div>
+
+</form>
+
+<a href="{% url 'indexview' %}" target="_blank" rel="noopener noreferrer">Go to Admin Page</a>
+
+
+</body>
+</html>

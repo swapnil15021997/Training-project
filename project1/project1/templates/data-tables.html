@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+
+{% block content %} 
+    
+			<!-- Page Wrapper -->
+            <div class="page-wrapper">
+                <div class="content container-fluid">
+
+					<!-- Page Header -->
+					<div class="page-header">
+						<div class="row">
+							<div class="col">
+								<h3 class="page-title">Students Data Table</h3>
+								<ul class="breadcrumb">
+									<li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+									<li class="breadcrumb-item active">Students Data Table</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<!-- /Page Header -->
+					
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="card mb-0">
+								<div class="card-header">
+									<h4 class="card-title mb-0">Students Data table</h4>
+									<p class="card-text">
+										This is the most basic example of the datatables with zero configuration. Use the <code>.datatable</code> class to initialize datatables.
+									</p>
+								</div>
+								<div class="card-body">
+
+									<div class="table-responsive">
+										<table class="datatable table table-stripped mb-0">
+											<thead>
+												<tr>
+													<th>Registraion Number</th>
+													<th>Date of Registraion</th>
+													<th>Surname</th>
+													<th>Fathers Name</th>
+													<th>Name</th>
+													<th>Aadhar Number</th>
+													<th>Mothers Name</th>
+													<th>Gender</th>
+													<th>Place</th>
+													<th>City</th>
+													<th>Distance</th>
+													<th>State</th>
+													<th>Physical State</th>
+													<th>School Name</th>
+												</tr>
+											</thead>
+											<tbody>
+
+												{% for student in data %}
+												<tr>
+													<td> <a href="{{student.id}}"> {{student.reg_no}}</a></td>
+													<td>{{student.date}}</td>
+													<td>{{student.surname}}</td>
+													<td>{{student.fname}}</td>
+													<td> {{ student.name|truncatechars:9 }}</td>
+													<td>{{student.adhar_no}}</td>
+													<td>{{student.mname}}</td>
+													<td>{{student.gender|capfirst }}</td>
+													<td>{{student.place}}</td>
+													<td>{{student.city}}</td>
+													<td>{{student.dist}}</td>
+													<td>{{student.state | capfirst }}</td>
+													<td>{{student.physical}}</td>
+													<td>{{student.schoolname}}</td>
+													
+
+												</tr>
+												{% endfor %}
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				
+				</div>			
+			</div>
+			<!-- /Page Wrapper -->
+		    {% endblock %}
+

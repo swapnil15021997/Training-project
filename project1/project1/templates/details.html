@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+
+
+
+    {% block content %} 
+    <!-- Page Wrapper -->
+    <div class="page-wrapper">
+                
+        <!-- Page Content -->
+        <div class="content container-fluid">
+        
+            <!-- Page Header -->
+            <div class="page-header">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h3 class="page-title">Welcome {{data.name|truncatechars:9}}!</h3>
+                        <div class="table-responsive">
+
+                        
+                            <table  class="datatable table table-stripped mb-0">
+       
+                            <thead>
+                              
+                            
+                            <th>Registraion Number</th>
+                            <th>Date of Registraion</th>
+                            <th>Surname</th>
+                            <th>Fathers Name</th>
+                            <th>Name</th>
+                            <th>Aadhar Number</th>
+                            <th>Mothers Name</th>
+                            <th>Gender</th>
+                            <th>Place</th>
+                            <th>City</th>
+                            <th>Distance</th>
+                            <th>State</th>
+                            <th>Physical State</th>
+                            <th>School Name</th>
+                            <th>Profile</th>
+                        </thead>
+                            <tr>
+                                <td>{{data.reg_no}}</td>
+                                <td>{{data.date}}</td>
+                                <td>{{data.surname}}</td>
+                                <td>{{data.fname}}</td>
+                                <td>{{data.name |truncatechars:7}}</td>
+                                <td>{{data.adhar_no}}</td>
+                                <td>{{data.mname}}</td>
+                                <td>{{data.gender|capfirst}}</td>
+                                <td>{{data.place}}</td>
+                                <td>{{data.city}}</td>
+                                <td>{{data.dist}}</td>
+                                <td>{{data.state|capfirst}}</td>
+                    
+                                <td>{{data.physical}}</td>
+                                <td>{{data.schoolname}}</td>
+                               
+                                <td><img src="{{data.profile_pic.url}}" style="height: 100px; width: 100px;" ></td>
+                             
+
+                            </tr>
+                            
+                    
+                         
+                         </table>
+                       
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+     
+    
+        
+    {% endblock %}
+
+
+
+    
+    
