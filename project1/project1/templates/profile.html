@@ -1,0 +1,130 @@
+{% extends 'index.html' %}
+
+
+{% block content %}
+
+<div class="page-wrapper">
+
+	<!-- Page Content -->
+	<div class="content container-fluid">
+
+		<!-- Page Header -->
+		<div class="page-header">
+			<div class="row">
+				<div class="col-sm-12">
+					<h3 class="page-title">Profile</h3>
+					<ul class="breadcrumb">
+						<li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+						<li class="breadcrumb-item active">Profile</li>
+
+
+
+					</ul>
+				</div>
+			</div>
+
+		</div>
+
+		<div class="card mb-0">
+			<div class="card-body">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="profile-view">
+							<div class="profile-img-wrap">
+								{% for data in data %}
+								<div class="profile-img">
+									<img src="{{MEDIA_URL}}/{{data.profile_pic}}">
+								</div>
+							</div>
+							<div class="profile-basic">
+								<div class="row">
+									<div class="col-md-5">
+										<div class="profile-info-left">
+											<h3 class="user-name m-t-0 mb-0">{{data.first_name}}
+												{{data.last_name}} </h3>
+
+											<input type="hidden" value="{{data.id}}">
+										</div>
+									</div>
+									<div class="col-md-7">
+										<ul class="personal-info">
+
+											<li>
+
+												<div class="title">Phone:</div>
+												<div class="text"><a href="">{{data.mobile}}</a>
+												</div>
+											</li>
+											<li>
+												<div class="title">Email:</div>
+												<div class="text"><a href="">{{data.email}}</a>
+												</div>
+											</li>
+
+											<li>
+												<div class="title">Address:</div>
+												<div class="text">{{data.address}}</div>
+											</li>
+											<li>
+												<div class="title">Gender:</div>
+												<div class="text">{{data.gender}}</div>
+											</li>
+
+
+
+											<li>
+												<div class="title">Nationality</div>
+												<div class="text">{{data.nationality}}</div>
+											</li>
+											<li>
+												<div class="title">Mobile Number</div>
+												<div class="text">{{data.mobile}}</div>
+											</li>
+
+										</ul>
+									</div>
+
+
+								</div>
+							</div>
+							<div class="pro-edit"><a data-bs-target="#profile_info" data-bs-toggle="modal"
+									class="edit-icon" onclick="show('{{data.id}}')"><i class="fa fa-pencil"></i></a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		{% endfor %}
+	</div>
+</div>
+
+
+<div id="modal-here">
+</div>
+
+
+
+<script>
+	function show(id) {
+		$.ajax({
+			url: 'portal/edit_profile/' + id,
+			type: 'get',
+			csrfmiddlewaretoken: '{% csrf_token %}',
+			success: function (data) {
+				$('#modal-here').append(data);
+				$('#edit-application').modal('show');
+
+
+			}
+		});
+
+	}
+
+</script>
+
+
+
+{% endblock %}

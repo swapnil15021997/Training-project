@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+
+{% block content %}
+
+<div class="page-wrapper">
+    <div class="content container-fluid">
+        <table id="example" class="display" style="width:100%">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    
+                    <th>Surname Name</th>
+                   
+                </tr>
+
+
+            </thead>
+            <tbody>
+                <tr>
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+<script>
+    
+    $(document).ready(function (data) {
+            $('#example').DataTable({
+                "ajax":"/json_data",
+               
+            // Data table config
+                processing: true,
+                serverSide: true, 
+                lengthChange: true,
+                "orderable": true,
+                statesave:true,
+                pageLength: 5,
+                lengthMenu: [ 5,10 ],
+                pagingType: 'full_numbers',
+                columnDefs:[
+                    {
+                        "targets":"_all",
+                        "defaultContent":""
+                    }
+                ],
+                "columns": [
+                    {data: "id"},
+                    {data: "name"},                    
+                    {data: "surname"},
+                ],
+            });
+
+
+           
+});
+
+
+
+</script>
+
+
+
+
+    {% endblock %}

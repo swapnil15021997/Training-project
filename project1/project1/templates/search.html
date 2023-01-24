@@ -1,0 +1,190 @@
+{% extends 'index.html' %}
+
+
+{% block content %}
+<!-- Page Wrapper -->
+<div class="page-wrapper">
+	<!-- Page Content -->
+	<div class="content container-fluid">
+
+		<!-- Page Header -->
+		<div class="page-header">
+			<div class="row">
+				<div class="col-sm-12">
+					<h3 class="page-title">Search</h3>
+					<ul class="breadcrumb">
+						<li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+						<li class="breadcrumb-item active">Search</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<!-- /Page Header -->
+
+		<!-- Content Starts -->
+		<div class="row">
+			<div class="col-12">
+
+				<!-- Search Form -->
+				<div class="main-search">
+					<form id="formId" method="post">
+						{% csrf_token %}
+						<div class="input-group">
+							<input type="text" class="form-control" name="name" id="searchText">
+							<button onclick="search()" class="btn btn-primary" type="button"  type="submit" id="submit"> Search</button>
+						</div>
+					</form>
+				</div>
+				<!-- /Search Form -->
+
+				
+				<div class="table-responsive">
+					<table class="datatabl e table table-stripped mb-0">
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>Registraion Number</th>
+								<th>Date of Registraion</th>
+								<th>Surname</th>
+								<th>Fathers Name</th>
+								<th>Name</th>
+								<th>Aadhar Number</th>
+								<th>Mothers Name</th>
+								<th>Gender</th>
+								<th>Place</th>
+								<th>City</th>
+								<th>Distance</th>
+								<th>State</th>
+								<th>Physical State</th>
+								<th>School Name</th>
+							</tr>
+						</thead>
+						<tbody id="data-table">
+							<tr>
+								<td> </td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div id="container">
+					<h5 id="msg"></h5>
+			   </div>
+			</div>
+		</div>	
+	</div>
+</div>
+
+<div id="modal-here"></div>
+
+<script>
+	function get_data(){ 
+		$.ajax({   
+			data: {
+                'search_text' : $('#searchText').val(),
+                'csrfmiddlewaretoken' : $("input[name=csrfmiddlewaretoken]").val()
+            }, 
+			url: "{% url 'search' %}",
+            type: 'post',
+            dataType: 'json',
+			csrfmiddlewaretoken: '{% csrf_token %}',
+            success: function(data) { // on success..
+				if (data.status == '200') { 
+					$('#data-table').empty();  
+					var arr = Array(data.users)
+					
+					for(let user of data.users){
+						var html = '';
+						var tr_html = ''; 
+						var user_id = user.id;
+						 
+						html += '<td>'+user.id+'</td>';
+						html += '<td>'+user.reg_no+'</td>';
+						html += '<td>'+user.date+'</td>';
+						html += '<td>'+user.surname+'</td>';
+						html += '<td>'+user.fname+'</td>';
+						html += '<td>'+user.name+'</td>';
+						html += '<td>'+user.adhar_no+'</td>';
+						html += '<td>'+user.mname+'</td>';
+						html += '<td>'+user.gender+'</td>';
+						html += '<td>'+user.place+'</td>';
+						html += '<td>'+user.city+'</td>';
+						html += '<td>'+user.dist+'</td>';
+						html += '<td>'+user.state+'</td>';
+						html += '<td>'+user.physical+'</td>';
+						html += '<td>'+user.schoolname+'</td>';
+						html +=`<td><div class="btn-group">
+<button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Action</button>
+<div class="dropdown-menu" data-popper-placement="top-start" style="position: absolute; inset: auto auto 0px 0px; margin: 0px; transform: translate(0px, -45px);">
+<a class="dropdown-item" href="#" id="(`+user_id+`)" onclick="update_user(`+user_id+`)">UPDATE</a>
+<a class="dropdown-item" href="#" id="(`+user_id+`)" onclick="delete_user(`+user_id+`)">DELETE</a> 
+</div>
+</div></td>`;
+						tr_html = '<tr>'+html+'</tr>';
+						$('#data-table').append(tr_html); 
+					
+					} 
+				}
+				if (data.status == '500') {
+					
+					console.log(users)
+				} 
+              
+            },
+        });
+	}
+
+ 
+	
+	function search(){ 
+		get_data();   
+	}
+	$(document).ready(function (e) { 
+		get_data();  
+	});
+	
+	function delete_user(user_id){
+		var result = confirm("Want to delete?");	
+		if(result ==true) {
+			
+			$.ajax({   
+			data: {
+				'id': user_id,
+                'csrfmiddlewaretoken' : $("input[name=csrfmiddlewaretoken]").val()
+            }, 
+			url: "{% url 'delete' %}",
+            type: 'post',
+            dataType: 'json',
+			csrfmiddlewaretoken: '{% csrf_token %}',
+            success: function(data) {					
+				alert('DELETE DONEs');
+				window.location("{% url 'delete_view' %}");
+			}
+		});
+			
+		}else{
+			alert('CANCELLED');
+		}
+	}
+
+	function update_user(user_id){
+		$.ajax({    
+			url: "user/edit/"+user_id,
+            type: 'get', 
+			csrfmiddlewaretoken: '{% csrf_token %}',
+            success: function(data) {		
+				$('#modal-here').append(data);
+				$('#edit-application').modal('show');
+				if (data.status == '200') {
+					console.log(data.message)
+                    $('#msg').text(data.message);
+				}
+			}
+		});
+
+	}
+
+</script>				
+
+
+
+{% endblock %}

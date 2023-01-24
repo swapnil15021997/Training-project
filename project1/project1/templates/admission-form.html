@@ -1,0 +1,202 @@
+{% extends 'index.html' %}
+
+{% block content %} 
+
+<div class="page-wrapper">
+			
+    <!-- Page Content -->
+    <div class="content container-fluid">
+    
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="row">
+                <div class="col-sm-12">
+                   
+                    <form id="formId" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="container">
+                            <div class="form">
+                                <h2 class="heading">JDCOEM</h2>
+                                <div>
+                                    <label for="reg">Reg. No</label> 
+                                    <input type="number" class="form-control" name="regno" id="regno">
+                                </div>
+                                
+                                <label for="image">Upload Image</label>
+                                <input type="file" class="form-control" name="image" id="img">
+                                
+                                <div id="container">
+                                     <h5 id="msg"></h5>
+                                </div>
+                                
+                                <div>
+                                    <label for="date">Date of Issue: </label>
+                                <input type="date"  name="date" id="date">
+                                </div>
+                            
+                            </div>
+                
+                            <div id="adform">
+                                <h2 class="heading"> Admission Form</h2>
+                                <div>
+                                    <label for="surname">Surname:</label>
+                                <input type="text" class="form-control" name="surname" id="surname" placeholder="Enter Your Surname">
+                                </div>
+                                
+                                <div>
+                                    <label for="name">Name:</label>
+                                    <input type="text" class="form-control" name="name" id="name" placeholder="Enter Your Name">
+                                </div>
+                               <div>
+                                <label for="name">Father's Name:</label>
+                                <input type="text" class="form-control" name="fname" id="fname" placeholder="Enter Your First Name">
+                               </div>
+                               <div>
+                                <label for="name">Mother's Name:</label>
+                                <input type="text" class="form-control" name="mname" id="mname" placeholder="Enter Your Mother's Name">
+                
+                               </div>
+                               
+                               <div>
+                                <label for="Aadhar Number">Aadhar Number :</label>
+                                <input type="number" class="form-control" name="adno" id="adno" >
+
+                               </div>
+                                
+                                <div>
+                                <label for="Date of birth" class="mt-2">Date of Birth :</label>
+                                <input type="date" name="dob" id="dob">
+                                <span>Format (DD/MM/YYYY) eg. 07/12/2000</span>
+                                </div>
+                                
+                                
+                               <DIV>
+                                <label for="Gender" class="mt-2">Gender :</label>
+                
+                                <input type="radio" name="gender" id="male" value="male">
+                                <label for="male">Male</label>
+                
+                                <input type="radio" name="gender" id="female" value="female">
+                                <label for="female">Female</label>
+
+                               </DIV>
+                               
+                
+                               <div>
+                                <label for="place" class="mt-2">Place of Birth: </label>
+                                <input type="text"class="form-control" name="place" id="place" placeholder="Enter Your Place of Birth">
+                            </div>
+                               <div>
+                                <label for="City">City: </label>
+                                <input type="text" name="city" class="form-control" id="city" placeholder="Enter Your City">
+                               </div>
+                               <br>
+                                <div>
+                                    <label for="City">Distance: </label>
+                                    <input type="number" name="dist" id="dist">
+                                </div>
+                                <br>
+                                <DIV>
+                                    <label for="state"> State: </label>
+                                    <select name="State" id="statenames">
+                                        <option value="Maharashtra">Maharashtra</option>
+                                        <option value="Gujrat">Gujrat</option>
+                                        <option value="Rajasthan">Rajasthan</option>
+                                        <option value="West Bangal">West Bangal</option>
+                                    </select>
+                    
+                                </DIV>
+                                <br>
+                                <div>
+                                    <label for="state"> Physical Problems (if any): </label>
+                
+                                <select name="physical problems" id="physicalproblems">
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+                                </div>
+                                
+                               <div>
+                                <label for="Name of School"> Name of School: </label>
+                                <input type="text" class="form-control" name="schoolname " id="schoolname">
+                               </div>
+                               
+                            </div>
+                        </div>
+                        <div class="undertaking">
+                            <h3 class="heading">Undertaking</h3>
+                            <i>Lorem ipsum dolor sit amet:</i>
+                
+                            <ol type="A">
+                                <p>
+                                    <li>
+                                        Constectetur adipiscing elit. Morbi rhoncus, lorem iterdum parta consequant, est manga luctus
+                                        diam ,
+                                        quis semper justo mauris at metus.
+                                    </li>
+                                </p>
+                                <li>
+                                    <p>Donec convallis accumsan mattis. Prasent tempus ante egeg diam laculis, id posuere enim tempus.
+                                    </p>
+                                </li>
+                
+                                <li>
+                                    <p>Cras vel lorem lancia, dapibus lorem sediscelerisque ac.</p>
+                                </li>
+                            </ol>
+                
+                            <h4 id="sig">Signature: </h4>
+                            <label for="sig" id="lab"></label>
+                           
+                            <button type="Submit" btn btn-primary" id="submitbuttion" onclick="submit()">Submit</button>
+                            <br>
+                        </div>
+                
+                    </form>
+                    <br>
+                  
+                    <a href="{% url 'portal' %}" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Go to Admin Page</a>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+    $(document).on("submit", "#formId", function (e) {
+        e.preventDefault();
+        $.ajax({
+            type: "POST", //get,post
+            url: "{% url 'save' %}",
+            dataType: 'json',
+            data: new FormData(this),
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                // JSON.parse(data)
+                if (data.status == '200') {
+                    console.log(data.message)
+                    $('#msg').text(data.message);
+                    
+                }
+                if (data.status == '500') {
+                    $('#msg').text(data.message);
+                }
+            },
+            error: function (data) {
+                // Some error in ajax call
+                // alert("some Error");
+            }
+        });
+
+    });
+
+</script>
+<script> 
+    function submit() { 
+      /*Put all the data posting code here*/ 
+     document.getElementById("#formId").reset(); 
+    } 
+    </script> 
+{% endblock %}

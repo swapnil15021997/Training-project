@@ -1,89 +1,116 @@
 <!DOCTYPE html>
 {% extends 'index.html' %}
 
-{% block content %} 
-    
-			<!-- Page Wrapper -->
-            <div class="page-wrapper">
-                <div class="content container-fluid">
+{% block content %}
 
-					<!-- Page Header -->
-					<div class="page-header">
-						<div class="row">
-							<div class="col">
-								<h3 class="page-title">Students Data Table</h3>
-								<ul class="breadcrumb">
-									<li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-									<li class="breadcrumb-item active">Students Data Table</li>
-								</ul>
-							</div>
-						</div>
-					</div>
-					<!-- /Page Header -->
-					
-					<div class="row">
-						<div class="col-sm-12">
-							<div class="card mb-0">
-								<div class="card-header">
-									<h4 class="card-title mb-0">Students Data table</h4>
-									<p class="card-text">
-										This is the most basic example of the datatables with zero configuration. Use the <code>.datatable</code> class to initialize datatables.
-									</p>
-								</div>
-								<div class="card-body">
+<!-- Page Wrapper -->
+<div class="page-wrapper">
+	<div class="content container-fluid">
 
-									<div class="table-responsive">
-										<table class="datatable table table-stripped mb-0">
-											<thead>
-												<tr>
-													<th>Registraion Number</th>
-													<th>Date of Registraion</th>
-													<th>Surname</th>
-													<th>Fathers Name</th>
-													<th>Name</th>
-													<th>Aadhar Number</th>
-													<th>Mothers Name</th>
-													<th>Gender</th>
-													<th>Place</th>
-													<th>City</th>
-													<th>Distance</th>
-													<th>State</th>
-													<th>Physical State</th>
-													<th>School Name</th>
-												</tr>
-											</thead>
-											<tbody>
-
-												{% for student in data %}
-												<tr>
-													<td> <a href="{{student.id}}"> {{student.reg_no}}</a></td>
-													<td>{{student.date}}</td>
-													<td>{{student.surname}}</td>
-													<td>{{student.fname}}</td>
-													<td> {{ student.name|truncatechars:9 }}</td>
-													<td>{{student.adhar_no}}</td>
-													<td>{{student.mname}}</td>
-													<td>{{student.gender|capfirst }}</td>
-													<td>{{student.place}}</td>
-													<td>{{student.city}}</td>
-													<td>{{student.dist}}</td>
-													<td>{{student.state | capfirst }}</td>
-													<td>{{student.physical}}</td>
-													<td>{{student.schoolname}}</td>
-													
-
-												</tr>
-												{% endfor %}
-											</tbody>
-										</table>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				
-				</div>			
+		<!-- Page Header -->
+		<div class="page-header">
+			<div class="row">
+				<div class="col">
+					<h3 class="page-title">Students Data Table</h3>
+					<ul class="breadcrumb">
+						<li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+						<li class="breadcrumb-item active">Students Data Table</li>
+					</ul>
+				</div>
 			</div>
-			<!-- /Page Wrapper -->
-		    {% endblock %}
+		</div>
+		<!-- /Page Header -->
 
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="card mb-0">
+					<div class="card-header">
+						<h4 class="card-title mb-0">Students Data table</h4>
+						<p class="card-text">
+							This is the most basic example of the datatables with zero configuration. Use the
+							<code>.datatable</code> class to initialize datatables.
+						</p>
+					</div>
+					<div class="card-body">
+
+						<div class="table-responsive">
+							<table class="datatable table table-stripped mb-0">
+								<thead>
+									<tr>
+
+										<th>Registraion Number</th>
+										<th>Date of Registraion</th>
+										<th>Surname</th>
+										<th>Fathers Name</th>
+										<th>Name</th>
+										<th>Aadhar Number</th>
+										<th>Mothers Name</th>
+										<th>Gender</th>
+										<th>Place</th>
+										<th>City</th>
+										<th>Distance</th>
+										<th>State</th>
+										<th>Physical State</th>
+										<th>School Name</th>
+									</tr>
+								</thead>
+								<tbody id="data-table">
+								</tbody>
+							</table>
+						</div>
+						<div class="pagination">
+								{% for i in last_page %}
+								<button class="btn btn-primary" style="margin-left: 5px; " page-no="{{i}}">{{i}}</button>
+								{% endfor %}
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	$('[page-no]').click(function (event) {
+
+		event.preventDefault();
+		var page_no = $(this).attr('page-no');
+		// ajax call
+		load_page(page_no);
+	});
+
+	$(document).ready(function(){
+		load_page(1);
+	});
+
+	function load_page(page_no){
+		$.ajax({
+			type: "POST",
+			// define url name
+			url: "{% url 'main' %}",
+			data: {
+				page_no: page_no,
+				csrfmiddlewaretoken: '{{ csrf_token }}',
+			},
+			// handle a successful response
+			success: function (response) {
+				$('#data-table').html('')
+				$.each(response.results, function (i, val) {
+					//append to post
+					$('#data-table').append('<td>' + val.reg_no + '</td><td>' + val.date + '</td><td>' + val.surname + '</td><td>' + val.fname + '</td><td>' + val.name + '</td><td>' + val.adhar_no + '</td><td>' + val.mname +
+						'</td><td>' + val.gender + '</td><td>' + val.place + '</td><td>' + val.city + '</td><td>' + val.dist + '</td><td>' + val.state + '</td><td>' + val.physical + '</td><td>' + val.schoolname + '</td>')
+					$('#data-table').append('<tr>' + '' + '</tr>')
+				});
+
+
+
+			},
+			error: function () {
+				// alert('Error Occured');
+			}
+		});
+	}
+</script>
+
+
+{% endblock %}

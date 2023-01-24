@@ -1,0 +1,171 @@
+<div class="modal fade" id="edit-application" aria-hidden="true" aria-labelledby="edit-applicationLabel" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="edit-applicationLabel">Edit Application</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12">
+
+                        <form id="formId" method="POST" enctype="multipart/form-data" action="{% url 'update' %}">
+                            {% csrf_token %}
+                            <div id="container">
+                                <div class="form">
+                                    <h2 class="heading">JDCOEM</h2>
+
+                                    <div>
+                                        <label for="reg">Reg. No</label>
+                                        <input class="form-control" type="number" name="regno" id="regno"
+                                            value="{{data.reg_no}}">
+                                        <input  type="hidden" name="user_id" value="{{data.id}}">
+                                    </div>
+
+                                    <div>
+                                        <label for="image">Upload Image</label>
+                                        <input class="form-control" type="file" name="image" id="img">
+                                        <img class="mt-2" src="{{data.profile_pic.url}}" width="200px" height="200px">
+                                    </div>
+
+                                    <div>
+                                        <label for="date">Date of Issue: {{data.date|date:'y-m-d'}} </label>
+
+                                        <input type="date" class="form-control" name="date_reg" id="date"
+                                            value="{{data.date|date:'Y-m-d'}}">
+                                    </div>
+
+                                    <div>
+                                        <label for="surname">Surname:</label>
+                                        <input type="text" class="form-control" name="surname" id="surname"
+                                            placeholder="Enter Your Surname" value="{{data.surname}}">
+
+                                    </div>
+                                    <div>
+                                        <label for="name">Name:</label>
+                                        <input type="text" class="form-control" name="name" id="name"
+                                            placeholder="Enter Your Name" value="{{data.name}}">
+
+                                    </div>
+
+                                    <div>
+                                        <label for="name">Father's Name:</label>
+                                        <input type="text" class="form-control" name="fname" id="fname"
+                                            placeholder="Enter Your First Name" value="{{data.fname}}">
+                                    </div>
+                                    <div>
+
+                                        <label for="name">Mother's Name:</label>
+                                        <input type="text" class="form-control" name="mname" id="mname"
+                                            placeholder="Enter Your Mother's Name" value="{{data.mname}}">
+
+                                    </div>
+                                    <div>
+
+
+                                        <label for="Aadhar Number">Aadhar Number :</label>
+                                        <input type="number" class="form-control" name="adno" id="adno"
+                                            value="{{data.adhar_no}}">
+                                    </div>
+
+                                    <div>
+                                        <label for="Date of birth">Date of Birth : {{data.dob}}</label>
+                                        <input type="date" class="form-control" name="dob" id="dob"
+                                            value="{{data.dob|date:'Y-m-d'}}">
+                                        <span>Format (DD/MM/YYYY) eg. 07/12/2000</span>
+                                    </div>
+                                    <label for="Gender">Gender :</label>
+                                   
+                                    <input type="radio" name="gender" id="male" value="male" {% if data.gender == "male" %} checked {% endif %}>
+                                    <label for="Gender">Male</label>
+                                   
+                                    
+
+                                    <input type="radio" name="gender" id="female" value="female"{% if data.gender == "female" %} checked  {% endif %}>
+                                    <label for="Gender">Female</label>
+                                   
+                                    <br /> <br />
+                                    <label for="place">Place of Birth: </label>
+                                    <input type="text" name="place" class="form-control" id="place"
+                                        placeholder="Enter Your Place of Birth" value="{{data.place}}">
+
+                                    <br /> <br />
+                                    <label for="City">City: </label>
+                                    <input type="text" name="city" class="form-control" id="city"
+                                        placeholder="Enter Your City" value="{{data.city}}">
+                                    <label for="City">Distance: </label>
+                                    <input type="number" name="dist" class="form-control" id="dist"
+                                        value="{{data.dist}}">
+
+                                    <br /> <br />
+                                    <h1>{{data.state}}</h1>
+                                    <label for="state"> State: </label>
+                                    <select name="State" class="form-control" id="statenames">
+                                        <option value="Maharashtra" selected>
+                                            Maharashtra</option>
+                                        <option value="Gujrat" selected>Gujrat
+
+                                        </option>
+
+                                        <option value="Rajasthan" selected>
+                                            Rajasthan</option>
+
+                                    </select>
+
+                                    <label for="state"> Physical Problems (if any): </label>
+
+                                    <select name="physical problems" id="physicalproblems" class="form-control">
+                                        <option value="Yes" selected>Yes</option>
+                                        <option value="No" selected>No</option>
+                                    </select>
+                                    <br /> <br />
+                                    <label for="Name of School"> Name of School: </label>
+                                    <input type="text" class="form-control" name="schoolname " id="schoolname"
+                                        value="{{data.schoolname}}">
+                                </div>
+                            </div>
+
+                            <div class="undertaking">
+                                <h3 class="heading">Undertaking</h3>
+                                <i>Lorem ipsum dolor sit amet:</i>
+
+                                <ol type="A">
+                                    <p>
+                                        <li>
+                                            Constectetur adipiscing elit. Morbi rhoncus, lorem iterdum parta consequant,
+                                            est
+                                            manga luctus
+                                            diam ,
+                                            quis semper justo mauris at metus.
+                                        </li>
+                                    </p>
+                                    <li>
+                                        <p>Donec convallis accumsan mattis. Prasent tempus ante egeg diam laculis, id
+                                            posuere enim tempus.
+                                        </p>
+                                    </li>
+
+                                    <li>
+                                        <p>Cras vel lorem lancia, dapibus lorem sediscelerisque ac.</p>
+                                    </li>
+                                </ol>
+
+
+                                <div class="w-100 text-end">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Close</button>
+                                    <button type="Submit" class="btn btn-primary" id="submitbuttion"
+                                        >Submit</button>
+                                </div>
+                                <br>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+
+    </script>

@@ -28,6 +28,21 @@
 		
 		<!-- Main CSS -->
         <link rel="stylesheet" href="{% static "css/style.css" %}">
+		<script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+		
+		
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
+		<script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+		<!-- <script src="{% static 'js/jquery.dataTables.min.js' %}"></script> -->
+		<style>
+		
+		
+		.pagination { display: inline-block;}
+		.pagination a { color: black; float: left; padding: 8px 16px; text-decoration: none;}
+		.pagination a.active { background-color: #4CAF50; color: white;}
+		.pagination a:hover:not(.active) {background-color: #ddd;}
+	
+		</style>
 		
 		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 		<!--[if lt IE 9]>
@@ -36,7 +51,7 @@
 		<![endif]-->
     </head>
 	
-    <body>
+	<body class="modal-open" style="padding-right: 17px;">
 		
 		<!-- Main Wrapper -->
         <div class="main-wrapper">
@@ -78,7 +93,7 @@
 							<a href="javascript:void(0);" class="responsive-search">
 								<i class="fa fa-search"></i>
 						   </a>
-							<form action="search.html">
+							<form action="{% url 'search'  %}">
 								<input class="form-control" type="text" placeholder="Search here">
 								<button class="btn" type="submit"><i class="fa fa-search"></i></button>
 							</form>
@@ -108,208 +123,24 @@
 					</li>
 					<!-- /Flag -->
 				
-					<!-- Notifications -->
-					<li class="nav-item dropdown">
-						<a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
-							<i class="fa fa-bell-o"></i> <span class="badge rounded-pill">3</span>
-						</a>
-						<div class="dropdown-menu notifications">
-							<div class="topnav-dropdown-header">
-								<span class="notification-title">Notifications</span>
-								<a href="javascript:void(0)" class="clear-noti"> Clear All </a>
-							</div>
-							<div class="noti-content">
-								<ul class="notification-list">
-									<li class="notification-message">
-										<a href="activities.html">
-											<div class="media d-flex">
-												<span class="avatar flex-shrink-0">
-													 
-												</span>
-												<div class="media-body flex-grow-1">
-													<p class="noti-details"><span class="noti-title">John Doe</span> added new task <span class="noti-title">Patient appointment booking</span></p>
-													<p class="noti-time"><span class="notification-time">4 mins ago</span></p>
-												</div>
-											</div>
-										</a>
-									</li>
-									<li class="notification-message">
-										<a href="activities.html">
-											<div class="media d-flex">
-												<span class="avatar flex-shrink-0">
-													<img alt="" src="{% static 'img/profiles/avatar-03.jpg' %}">
-												</span>
-												<div class="media-body flex-grow-1">
-													<p class="noti-details"><span class="noti-title">Tarah Shropshire</span> changed the task name <span class="noti-title">Appointment booking with payment gateway</span></p>
-													<p class="noti-time"><span class="notification-time">6 mins ago</span></p>
-												</div>
-											</div>
-										</a>
-									</li>
-									<li class="notification-message">
-										<a href="activities.html">
-											<div class="media d-flex">
-												<span class="avatar flex-shrink-0">
-													<img alt="" src="{% static 'img/profiles/avatar-06.jpg' %}">
-												</span>
-												<div class="media-body flex-grow-1">
-													<p class="noti-details"><span class="noti-title">Misty Tison</span> added <span class="noti-title">Domenic Houston</span> and <span class="noti-title">Claire Mapes</span> to project <span class="noti-title">Doctor available module</span></p>
-													<p class="noti-time"><span class="notification-time">8 mins ago</span></p>
-												</div>
-											</div>
-										</a>
-									</li>
-									<li class="notification-message">
-										<a href="activities.html">
-											<div class="media d-flex">
-												<span class="avatar flex-shrink-0">
-													<img alt="" src="{% static 'img/profiles/avatar-17.jpg'%}">
-												</span>
-												<div class="media-body flex-grow-1">
-													<p class="noti-details"><span class="noti-title">Rolland Webber</span> completed task <span class="noti-title">Patient and Doctor video conferencing</span></p>
-													<p class="noti-time"><span class="notification-time">12 mins ago</span></p>
-												</div>
-											</div>
-										</a>
-									</li>
-									<li class="notification-message">
-										<a href="activities.html">
-											<div class="media d-flex">
-												<span class="avatar flex-shrink-0">
-													<img alt="" src="{% static 'img/profiles/avatar-13.jpg'%}">
-												</span>
-												<div class="media-body flex-grow-1">
-													<p class="noti-details"><span class="noti-title">Bernardo Galaviz</span> added new task <span class="noti-title">Private chat module</span></p>
-													<p class="noti-time"><span class="notification-time">2 days ago</span></p>
-												</div>
-											</div>
-										</a>
-									</li>
-								</ul>
-							</div>
-							<div class="topnav-dropdown-footer">
-								<a href="activities.html">View all Notifications</a>
-							</div>
-						</div>
-					</li>
-					<!-- /Notifications -->
-					
-					<!-- Message Notifications -->
-					<li class="nav-item dropdown">
-						<a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
-							<i class="fa fa-comment-o"></i> <span class="badge rounded-pill">8</span>
-						</a>
-						<div class="dropdown-menu notifications">
-							<div class="topnav-dropdown-header">
-								<span class="notification-title">Messages</span>
-								<a href="javascript:void(0)" class="clear-noti"> Clear All </a>
-							</div>
-							<div class="noti-content">
-								<ul class="notification-list">
-									<li class="notification-message">
-										<a href="chat.html">
-											<div class="list-item">
-												<div class="list-left">
-													<span class="avatar">
-														<img alt="" src="{% static 'img/profiles/avatar-09.jpg'%}">
-													</span>
-												</div>
-												<div class="list-body">
-													<span class="message-author">Richard Miles </span>
-													<span class="message-time">12:28 AM</span>
-													<div class="clearfix"></div>
-													<span class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing</span>
-												</div>
-											</div>
-										</a>
-									</li>
-									<li class="notification-message">
-										<a href="chat.html">
-											<div class="list-item">
-												<div class="list-left">
-													 <span class="avatar">
-														<img alt="" src="{% static 'img/profiles/avatar-02.jpg' %}">
-													</span> 
-												</div>
-												<div class="list-body">
-													<span class="message-author">John Doe</span>
-													<span class="message-time">6 Mar</span>
-													<div class="clearfix"></div>
-													<span class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing</span>
-												</div>
-											</div>
-										</a>
-									</li>
-									<li class="notification-message">
-										<a href="chat.html">
-											<div class="list-item">
-												<div class="list-left">
-													<span class="avatar">
-														<img alt="" src="{% static 'img/profiles/avatar-03.jpg'%}">
-													</span>
-												</div>
-												<div class="list-body">
-													<span class="message-author"> Tarah Shropshire </span>
-													<span class="message-time">5 Mar</span>
-													<div class="clearfix"></div>
-													<span class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing</span>
-												</div>
-											</div>
-										</a>
-									</li>
-									<li class="notification-message">
-										<a href="chat.html">
-											<div class="list-item">
-												<div class="list-left">
-													<span class="avatar">
-														<img alt="" src="{% static 'img/profiles/avatar-05.jpg' %} ">
-													</span>
-												</div>
-												<div class="list-body">
-													<span class="message-author">Mike Litorus</span>
-													<span class="message-time">3 Mar</span>
-													<div class="clearfix"></div>
-													<span class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing</span>
-												</div>
-											</div>
-										</a>
-									</li>
-									<li class="notification-message">
-										<a href="chat.html">
-											<div class="list-item">
-												<div class="list-left">
-													<span class="avatar">
-														<img alt="" src="{% static 'img/profiles/avatar-08.jpg' %}">
-													</span>
-												</div>
-												<div class="list-body">
-													<span class="message-author"> Catherine Manseau </span>
-													<span class="message-time">27 Feb</span>
-													<div class="clearfix"></div>
-													<span class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing</span>
-												</div>
-											</div>
-										</a>
-									</li>
-								</ul>
-							</div>
-							<div class="topnav-dropdown-footer">
-								<a href="chat.html">View all Messages</a>
-							</div>
-						</div>
-					</li>
-					<!-- /Message Notifications -->
-
-					<li class="nav-item dropdown has-arrow main-drop">
+										<li class="nav-item dropdown has-arrow main-drop">
 						<a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
 							<span class="user-img"><img src="{% static 'img/profiles/avatar-21.jpg' %}" alt="">
 							<span class="status online"></span></span>
 							<span>Admin</span>
 						</a>
 						<div class="dropdown-menu">
-							<a class="dropdown-item" href="profile.html">My Profile</a>
-							<a class="dropdown-item" href="settings.html">Settings</a>
-							<a class="dropdown-item" href="login.html">Logout</a>
+							{% if current_user  %}
+							<a class="dropdown-item" href="{% url 'registration' %}">Register</a>
+								<a class="dropdown-item" href="{% url 'login' %}">Login</a>
+							
+								{% else %}
+								<a class="dropdown-item" href="{% url 'profile' %}">My Profile</a>
+								<a class="dropdown-item" href="{% url 'admission' %}">Admission Form</a>
+								<a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+								
+								
+							{% endif %}
 						</div>
 					</li>
 				</ul>
@@ -344,8 +175,10 @@
 							<li class="submenu">
 								<a href="#"><i class="la la-dashboard"></i> <span> Dashboard</span> <span class="menu-arrow"></span></a>
 								<ul style="display: none;">
-									<li><a class="active" href="{% url 'indexview' %}">Student Dashboard</a></li>
-									
+									<li><a class="active" href="{% url 'portal' %}">Student Dashboard</a></li>
+									<li><a class="active" href="{% url 'change_password' %}">Change Password</a></li>
+								 <li><a class="active" href="{% url 'data-list-view' %}">Data Table</a></li>
+									 
 								</ul>
 							</li>
 							
@@ -367,7 +200,9 @@
 					<div class="page-header">
 						<div class="row">
 							<div class="col-sm-12">
-								<h3 class="page-title">Welcome Admin!</h3>
+								
+								<h3 class="page-title">Welcome {{ user_para.current_user| capfirst }}!</h3>
+						
 								<ul class="breadcrumb">
 									<li class="breadcrumb-item active">Student Dashboard</li>
 								</ul>
@@ -385,7 +220,7 @@
 										{% if data %}
 										<h3>{{data}}</h3>
 										{% endif %}
-										<a href="{% url 'tables' %}"><span>Students</span></a>
+										<a href="{% url 'main' %}"><span>Students</span></a>
 									</div>
 								</div>
 							</div>
@@ -410,7 +245,7 @@
 													<th>Name</th>
 													<th>City</th>
 													<th>State</th>
-													<th class="text-end">Action</th>
+								
 												</tr>
 											</thead>
 											<tbody>
@@ -426,15 +261,7 @@
 													<td>
 														{{student.state | capfirst}}
 													</td>
-													<td class="text-end">
-														<div class="dropdown dropdown-action">
-															<a href="#" class="action-icon dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
-															<div class="dropdown-menu dropdown-menu-right">
-																<a class="dropdown-item" href="javascript:void(0)"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-																<a class="dropdown-item" href="javascript:void(0)"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
-															</div>
-														</div>
-													</td>
+													
 												</tr>
 												{% endfor %}
 
@@ -447,7 +274,7 @@
 									</div>
 								</div>
 								<div class="card-footer">
-									<a href="{% url 'tables' %}">View all Students</a>
+									<a href="{% url 'main' %}">View all Students</a>
 								</div>
 							</div>
 						</div>
@@ -465,8 +292,7 @@
 		<!-- /Main Wrapper -->
 		
 		<!-- jQuery -->
-        <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
-		
+       
 		<!-- Bootstrap Core JS -->
         <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
 		
@@ -474,9 +300,6 @@
 		<script src="{% static 'js/jquery.slimscroll.min.js' %}"></script>
 		
 		<!-- Chart JS -->
-		<script src="{% static 'plugins/morris/morris.min.js' %}"></script>
-		<script src="{% static 'plugins/raphael/raphael.min.js' %}"></script>
-		<script src="{% static 'js/chart.js' %}"></script>
 		
 		<!-- Custom JS -->
 		<script src="{% static 'js/app.js' %}"></script>

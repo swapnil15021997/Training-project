@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+        <meta name="description" content="Smarthr - Bootstrap Admin Template">
+		<meta name="keywords" content="admin, estimates, bootstrap, business, corporate, creative, management, minimal, modern, accounts, invoice, html5, responsive, CRM, Projects">
+        <meta name="author" content="Dreamguys - Bootstrap Admin Template">
+        <meta name="robots" content="noindex, nofollow">
+        <title>Register - HRMS admin template</title>
+		
+		<!-- Favicon -->
+        <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/favicon.png' %}">
+		
+		<!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+		
+		<!-- Fontawesome CSS -->
+        <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+		
+		<!-- Main CSS -->
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+		
+		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!--[if lt IE 9]>
+			<script src="assets/js/html5shiv.min.js"></script>
+			<script src="assets/js/respond.min.js"></script>
+		<![endif]-->
+    </head>
+    <body class="account-page">
+	
+		<!-- Main Wrapper -->
+        <div class="main-wrapper">
+			<div class="account-content">
+				<a href="job-list.html" class="btn btn-primary apply-btn">Apply Job</a>
+				<div class="container">
+				
+					<!-- Account Logo -->
+					<div class="account-logo">
+						<a href="index.html"><img src="{% static 'img/logo2.png' %}" alt="Dreamguy's Technologies"></a>
+					</div>
+					<!-- /Account Logo -->
+					
+					<div class="account-box">
+						<div class="account-wrapper">
+							<h3 class="account-title">Register</h3>
+							<p class="account-subtitle">Access to our dashboard</p>
+							
+							<!-- Account Form -->
+							<form method="POST" action="{% url 'do-registration' %}" id="formId" enctype="multipart/form-data">
+								{% csrf_token %}
+								<div class="form-group">
+									<label>Firstname</label>
+									<input class="form-control" type="text" name="firstname">
+								</div>
+								<div class="form-group">
+									<label>Lastname</label>
+									<input class="form-control" type="text" name="lastname">
+								</div>
+								<div class="form-group">
+								<label for="image">Upload Image</label>
+                                <input type="file" name="image" id="img">
+								</div>
+								<div class="form-group">
+									<label>Email</label>
+									<input class="form-control" type="email" name="email">
+								</div>
+								<div id="container">
+									<h5 id="msg"></h5>
+							   </div>
+								<div class="col">
+									{% if messages %}
+									<ul class="messages">
+										{% for message in message %}
+										<li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+
+										{% endfor %}
+									</ul>
+									{% endif %}
+								</div>
+								<div class="form-group">
+									<label>Mobile</label>
+									<input class="form-control" type="number" name="mobile">
+								</div>
+								<div class="form-group">
+									<label>Address</label>
+									<input class="form-control" type="text" name="address">
+								</div>
+								
+								<div class="form-group">
+									<label>Gender</label>
+									
+								<input type="radio" name="gender" id="male" value="male">
+								<label for ="male">Male</label>
+								
+								<input type="radio" name="gender" id="female" value="female">
+                                <label for="female">Female</label>
+								</div>
+								<div class="form-group">
+									<label>Nationality</label>
+								<select name="Nationality" id="Nationality">
+                                    <option value="Indian">Indian</option>
+                                    <option value="Pakistan">Pakistan</option>
+                                    <option value="Bangladesh">Bangladesh</option>
+                                    <option value="Nepal">Nepal</option>
+                                </select>
+							</div>
+								<div class="form-group">
+									<label>Password</label>
+									<input class="form-control" type="password" name="pass">
+								</div>
+								<div class="form-group">
+									<label>Repeat Password</label>
+									<input class="form-control" type="password" name="repass">
+									
+								</div>
+								<div class="form-group text-center">
+									<button class="btn btn-primary account-btn" type="submit">Register</button>
+								</div>
+								<div class="account-footer">
+									<p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
+								</div>
+							</form>
+							<!-- /Account Form -->
+						</div>
+					</div>
+				</div>
+			</div>
+        </div>
+		<!-- /Main Wrapper -->
+		
+		<!-- jQuery -->
+        <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+		
+		<!-- Bootstrap Core JS -->
+        <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+		
+		<!-- Custom JS -->
+		<script src="{% static 'js/app.js' %}"></script>
+		<script>
+
+			$(document).ready(function (e) {
+				$(document).on("submit", "form", function (e) {
+					
+					e.preventDefault();
+					
+					$.ajax({
+						type: "POST", //get,post
+						url: "{% url 'do-registration' %}",
+						dataType: 'json',
+						data: new FormData(this),
+						processData: false,
+						contentType: false,
+						success: function (data) {
+							// JSON.parse(data)
+							if (data.status == '200') {
+								window.open("{% url 'login' %}",'_self');
+							}
+							if (data.status == '500') {
+								$('#msg').text(data.message);
+								alert(data.message)
+							}
+						},
+					});
+
+					return false;
+				});
+			});
+		
+		</script>
+    </body>
+</html>

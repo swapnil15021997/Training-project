@@ -1,0 +1,29 @@
+#Ajax code to submit form data
+
+$(document).on("submit", "#formId", function (e) {
+            e.preventDefault();
+            $.ajax({
+                type: "POST", //get,post
+                url: "{% url 'save' %}",
+                dataType: 'json',
+                data: new FormData(this),
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    // JSON.parse(data)
+                    if(data.status == '200'){
+                        alert(data.message);
+                        //redirect
+                    }
+                    if(data.status == '500'){
+
+                        alert(data.message);
+                    }
+                },
+                error: function (data) {
+                    // Some error in ajax call
+                    // alert("some Error");
+                }
+            });
+
+        });

@@ -13,7 +13,9 @@
             <!-- Page Header -->
             <div class="page-header">
                 <div class="row">
-                    <div class="col-sm-12">
+                    <div class="col-sm-12", id="data-table">
+                        
+                           
                         <h3 class="page-title">Welcome {{data.name|truncatechars:9}}!</h3>
                         <div class="table-responsive">
 
@@ -41,7 +43,7 @@
                         </thead>
                             <tr>
                                 <td>{{data.reg_no}}</td>
-                                <td>{{data.date}}</td>
+                                <td>{{i.date}}</td>
                                 <td>{{data.surname}}</td>
                                 <td>{{data.fname}}</td>
                                 <td>{{data.name |truncatechars:7}}</td>

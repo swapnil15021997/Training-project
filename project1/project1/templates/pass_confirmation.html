@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+	<meta name="description" content="Smarthr - Bootstrap Admin Template">
+	<meta name="keywords"
+		content="admin, estimates, bootstrap, business, corporate, creative, management, minimal, modern, accounts, invoice, html5, responsive, CRM, Projects">
+	<meta name="author" content="Dreamguys - Bootstrap Admin Template">
+	<meta name="robots" content="noindex, nofollow">
+	<title>Login - HRMS admin template</title>
+
+	<!-- Favicon -->
+	<link rel="shortcut icon" type="image/x-icon" href="{% static 'img/favicon.png' %}">
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+	
+	<!-- jQuery -->
+	<script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+
+	<!-- Fontawesome CSS -->
+	<link rel="stylesheet" href="{% static 'css/font-awesome.min.css'%}">
+
+	<!-- Main CSS -->
+	<link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+			<script src="assets/js/html5shiv.min.js"></script>
+			<script src="assets/js/respond.min.js"></script>
+		<![endif]-->
+</head>
+
+<div class="page-wrapper">
+	<div class="content container-fluid">
+		<div class="row">
+			<div class="col-md-6 offset-md-3">
+
+				<!-- Page Header -->
+				<div class="page-header">
+					<div class="row">
+						<div class="col-sm-12">
+							<h3 class="page-title">Change Password</h3>
+						</div>
+					</div>
+				</div>
+				<!-- /Page Header -->
+
+				<form method="POST" id="update_password">
+					{% csrf_token %}
+					<div id="container">
+						<h5 id="msg"></h5>
+					</div>
+					<div>
+						{% if messages %}
+						<ul class="messages">
+							{% for message in messages %}
+							<li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+
+								{% endfor %}
+						</ul>
+						{% endif %}
+					</div>
+					<div class="form-group">
+						<label>New password</label>
+						<input type="password" id="new_password1" name="new_password1" class="form-control">
+					</div>
+					<div class="form-group">
+						<label>Confirm password</label>
+						<input type="password" id="new_password2" name="new_password2" class="form-control">
+					</div>
+					<div class="submit-section">
+						<button class="btn btn-primary" id="submit_data" type="submit">Update Password</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- /Page Content -->
+
+</div>
+
+
+
+	<!-- Bootstrap Core JS -->
+	<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+
+	<!-- Custom JS -->
+	<script src="{% static 'js/app.js' %}"></script>
+
+</body>
+
+</html>
